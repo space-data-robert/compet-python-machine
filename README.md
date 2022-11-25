@@ -1,1 +1,0 @@
-# compet-python-model
