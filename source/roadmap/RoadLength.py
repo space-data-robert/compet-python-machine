@@ -1,4 +1,4 @@
-import haversine
+from haversine import haversine
 from sklearn.base import TransformerMixin, BaseEstimator
 
 
