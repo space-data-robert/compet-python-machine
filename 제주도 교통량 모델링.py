@@ -10,6 +10,7 @@ def pipeline(data):
     all_features = data.columns
 
     num_feature = make_column_transformer(
+        (SelectFeature('maximum_speed_limit'), ['maximum_speed_limit']),
         (CycleSineHour('base_hour'), ['base_hour']),
         (CycleCosineHour('base_hour'), ['base_hour']),
         (GroupMeanStatistics('base_hour', 'target'), ['base_hour', 'target']),
