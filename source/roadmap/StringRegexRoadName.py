@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.base import TransformerMixin, BaseEstimator
 
 
@@ -14,8 +15,8 @@ class StringRegexRoadName(BaseEstimator, TransformerMixin):
         output = x_data[self.feature_name].str.extract(
             self.search_pattern
         )
-
-        output = output.apply(
-            lambda x: x if len(x) > 0 else '기타'
-        )
+        # output = output.apply(
+        #     lambda x: '기타' if pd.isna(x).sum() > 0 else x
+        # )
+        # output.loc[output[0].isnull(), 0] = '기타'
         return output
