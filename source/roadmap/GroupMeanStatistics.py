@@ -3,9 +3,9 @@ from sklearn.base import TransformerMixin, BaseEstimator
 
 
 class GroupMeanStatistics(BaseEstimator, TransformerMixin):
-    def __init__(self, feature_name, target_name=None):
+    def __init__(self, feature_name):
         self.feature_name = feature_name
-        self.target_name = target_name
+        self.target_name = 'target'
         self.stats_dictionary = 0
 
     def fit(self, x_data, y_data=None):
