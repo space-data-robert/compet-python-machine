@@ -42,7 +42,7 @@ def pipeline(x_data, y_data):
     categories = make_pipeline(
         _categories,
         SimpleImputer(strategy='most_frequent'),
-        OneHotEncoder(categories='auto', sparse=False)
+        OneHotEncoder(categories='auto', sparse=False, handle_unknown='ignore')
     )
 
     features = make_column_transformer(
