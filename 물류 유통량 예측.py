@@ -29,9 +29,10 @@ def pipeline(x_data: pd.DataFrame, y_data: pd.DataFrame) -> object:
     )
 
     model: object = cat.CatBoostRegressor(
+        task_type='GPU',
         learning_rate=0.018272261776066247,
         bagging_temperature=63.512210106407046,
-        n_estimators=100, # 3794,
+        n_estimators=3794,
         max_depth=11,
         random_strength=27,
         l2_leaf_reg=1.7519275289243016e-06,
@@ -40,8 +41,6 @@ def pipeline(x_data: pd.DataFrame, y_data: pd.DataFrame) -> object:
         od_type='IncToDec',
         random_state=27,
         verbose=False,
-        # task_type='GPU',
-        # colsample_bylevel=0.49359671220172163,
     )
 
     pipeline: object = make_pipeline(
