@@ -18,6 +18,9 @@ from sklearn.preprocessing import FunctionTransformer
 from sklearn.pipeline import make_pipeline
 from sklearn.compose import make_column_transformer
 
+import autosklearn.regression
+
+
 def rename_columns(data: pd.Series) -> pd.DataFrame:
     data: pd.DataFrame = pd.DataFrame(
         data, columns=(list(feat_nummeries_nm) + list(feat_categories_nm))
@@ -68,13 +71,21 @@ def pipeline(train_x, train_y):
                 func=around_subway_bus_cnt), ['around_subway_cnt', 'around_bus_cnt']),
             (FunctionTransformer(
                 func=parking_per_house), ['parking_lot_cnt', 'total_household_cnt']),
-        )
+        ),
+        RobustScaler()
     )
 
-        caret_x: np.array = pipeline_feat.fit_transform(train_x)
-        print(f'Shape of pre-processed features = {caret_x.shape}')
+    model: object = autosklearn.regression.AutoSklearnRegressor(
+            time_left_for_this_task=120,
+        )
 
-    return -1
+    pipeline_all: object = make_pipeline(
+        pipeline_feat,
+        model
+    )
+    pipeline_all.fit(train_x, train_y)
+
+    return pipeline_all
 
 
 if __name__ == '__main__':
@@ -86,4 +97,4 @@ if __name__ == '__main__':
     feat_categories_nm: str = train_x.dtypes[train_x.dtypes == 'object'].index
     feat_nummeries_nm: str = train_x.dtypes[train_x.dtypes != 'object'].index
 
-    pipeline(train_x, train_y)
+    pipeline = pipeline(train_x, train_y)
